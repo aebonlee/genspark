@@ -7,11 +7,10 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "generate-og": "node scripts/generate-og-image.mjs"
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.47.0",
-    "jspdf": "^2.5.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-markdown": "^9.0.1",
