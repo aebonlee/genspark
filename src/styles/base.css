@@ -1,6 +1,6 @@
 /* ============================================
    Genspark Master - Base Styles
-   Purple Primary (#7C3AED)
+   Dark Blue Primary (#1B3A6B)
    ============================================ */
 
 * {
@@ -20,14 +20,14 @@
 }
 
 :root {
-    /* -- Primary Colors (Genspark Purple) -- */
-    --primary-blue: #7C3AED;
-    --primary-blue-dark: #5B21B6;
-    --primary-blue-light: #A78BFA;
+    /* -- Primary Colors (Dark Blue) -- */
+    --primary-blue: #1B3A6B;
+    --primary-blue-dark: #0F2444;
+    --primary-blue-light: #3D6DB5;
 
-    /* -- Accent (Electric Blue) -- */
-    --accent-amber: #2563EB;
-    --accent-amber-light: #60A5FA;
+    /* -- Accent (Genspark Amber) -- */
+    --accent-amber: #D97706;
+    --accent-amber-light: #F59E0B;
 
     /* -- Background Colors -- */
     --bg-white: #FFFFFF;
@@ -56,11 +56,11 @@
     --container-max: 1280px;
 
     /* -- Gradients -- */
-    --primary-gradient: linear-gradient(135deg, #7C3AED 0%, #A78BFA 100%);
-    --accent-gradient: linear-gradient(135deg, #5B21B6 0%, #7C3AED 50%, #A78BFA 100%);
-    --hero-bg: linear-gradient(135deg, #7C3AED 0%, #5B21B6 50%, #6D28D9 100%);
-    --hero-bg-dark: linear-gradient(135deg, #3B0764 0%, #4C1D95 50%, #5B21B6 100%);
-    --highlight-gradient: linear-gradient(135deg, #C4B5FD 0%, #DDD6FE 50%, #FFFFFF 100%);
+    --primary-gradient: linear-gradient(135deg, #1B3A6B 0%, #3D6DB5 100%);
+    --accent-gradient: linear-gradient(135deg, #0F2444 0%, #1B3A6B 50%, #3D6DB5 100%);
+    --hero-bg: linear-gradient(135deg, #1B3A6B 0%, #0F2444 50%, #1E3A5F 100%);
+    --hero-bg-dark: linear-gradient(135deg, #0A1E3A 0%, #0F2444 50%, #172D58 100%);
+    --highlight-gradient: linear-gradient(135deg, #93B5FD 0%, #BFD5FE 50%, #FFFFFF 100%);
 
     /* -- Glassmorphism -- */
     --glass-bg: rgba(255, 255, 255, 0.85);

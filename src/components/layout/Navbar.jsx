@@ -42,6 +42,7 @@ export default function Navbar() {
     { path: '/ai-tools', ko: 'AI Tools', en: 'AI Tools' },
     { path: '/prompt-guide', ko: '프롬프트 가이드', en: 'Prompt Guide' },
     { path: '/ai-news', ko: 'AI 뉴스', en: 'AI News' },
+    { path: '/community', ko: '커뮤니티', en: 'Community' },
   ];
 
   return (

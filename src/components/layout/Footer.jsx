@@ -28,6 +28,7 @@ export default function Footer() {
               <li><Link to="/ai-developer">AI Developer</Link></li>
               <li><Link to="/ai-tools">AI Tools</Link></li>
               <li><Link to="/prompt-guide">{language === 'ko' ? '프롬프트 가이드' : 'Prompt Guide'}</Link></li>
+              <li><Link to="/community">{language === 'ko' ? '커뮤니티' : 'Community'}</Link></li>
             </ul>
           </div>
 

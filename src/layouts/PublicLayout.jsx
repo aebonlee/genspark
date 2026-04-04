@@ -16,6 +16,8 @@ const AINews = lazy(() => import('../pages/ai-news/AINews'));
 const Resources = lazy(() => import('../pages/resources/Resources'));
 const Glossary = lazy(() => import('../pages/glossary/Glossary'));
 const Roadmap = lazy(() => import('../pages/roadmap/Roadmap'));
+const Board = lazy(() => import('../pages/community/Board'));
+const BoardDetail = lazy(() => import('../pages/community/BoardDetail'));
 const NotFound = lazy(() => import('../pages/NotFound'));
 
 function LoadingFallback() {
@@ -46,6 +48,8 @@ export default function PublicLayout() {
             <Route path="/resources" element={<Resources />} />
             <Route path="/glossary" element={<Glossary />} />
             <Route path="/roadmap" element={<Roadmap />} />
+            <Route path="/community" element={<Board />} />
+            <Route path="/community/:id" element={<BoardDetail />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
