@@ -1,4 +1,4 @@
-import{j as e,M as g,r as h}from"./markdown-CxoQlPwA.js";import{b as y}from"./vendor-ByVyFa1h.js";import{u as f}from"./index-DWCa2C0B.js";import{S as v}from"./SEOHead-DMgYG8rV.js";import{T as S,C as u}from"./TipBox-Dj95heyX.js";import"./pdf-ckwbz45p.js";const k={id:"overview",title:"Super Agent 개요",titleEn:"Super Agent Overview",icon:"fa-robot",sections:[{title:"Super Agent란?",titleEn:"What is Super Agent?",content:`Super Agent는 Genspark의 핵심 AI 에이전트로, 단순한 질문-답변을 넘어 복잡한 멀티 스텝 작업을 자율적으로 수행할 수 있는 지능형 비서입니다. 여러 AI 모델과 도구를 결합하여 사용자의 요청을 완벽하게 처리합니다.
+import{j as e,M as g,r as h}from"./markdown-DnsyFQ3Z.js";import{b as y}from"./vendor-C7SgezlP.js";import{u as f}from"./index-Dq0AHLiD.js";import{S as v}from"./SEOHead-BW8dftyZ.js";import{T as S,C as u}from"./TipBox-BiJxeQEl.js";import"./pdf-ckwbz45p.js";const k={id:"overview",title:"Super Agent 개요",titleEn:"Super Agent Overview",icon:"fa-robot",sections:[{title:"Super Agent란?",titleEn:"What is Super Agent?",content:`Super Agent는 Genspark의 핵심 AI 에이전트로, 단순한 질문-답변을 넘어 복잡한 멀티 스텝 작업을 자율적으로 수행할 수 있는 지능형 비서입니다. 여러 AI 모델과 도구를 결합하여 사용자의 요청을 완벽하게 처리합니다.
 
 ### 핵심 기능
 

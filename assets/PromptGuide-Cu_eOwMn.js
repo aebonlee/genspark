@@ -1,4 +1,4 @@
-import{j as e,M as h,r as g}from"./markdown-CxoQlPwA.js";import{b as y}from"./vendor-ByVyFa1h.js";import{u as f}from"./index-DWCa2C0B.js";import{S as v}from"./SEOHead-DMgYG8rV.js";import{T as k,C as m}from"./TipBox-Dj95heyX.js";import"./pdf-ckwbz45p.js";const b={id:"basics",title:"Genspark 프롬프트 기초",titleEn:"Genspark Prompt Basics",icon:"fa-graduation-cap",sections:[{title:"프롬프트 작성 원칙",titleEn:"Prompt Writing Principles",content:`Genspark에서 효과적인 결과를 얻기 위한 프롬프트 작성의 기본 원칙을 소개합니다.
+import{j as e,M as h,r as g}from"./markdown-DnsyFQ3Z.js";import{b as y}from"./vendor-C7SgezlP.js";import{u as f}from"./index-Dq0AHLiD.js";import{S as v}from"./SEOHead-BW8dftyZ.js";import{T as k,C as m}from"./TipBox-BiJxeQEl.js";import"./pdf-ckwbz45p.js";const b={id:"basics",title:"Genspark 프롬프트 기초",titleEn:"Genspark Prompt Basics",icon:"fa-graduation-cap",sections:[{title:"프롬프트 작성 원칙",titleEn:"Prompt Writing Principles",content:`Genspark에서 효과적인 결과를 얻기 위한 프롬프트 작성의 기본 원칙을 소개합니다.
 
 ### 5가지 핵심 원칙
 
