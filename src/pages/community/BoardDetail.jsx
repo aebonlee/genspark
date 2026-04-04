@@ -1,64 +1,150 @@
-import { useParams, Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useLanguage } from '../../contexts/LanguageContext';
+import { useAuth } from '../../contexts/AuthContext';
+import { useToast } from '../../contexts/ToastContext';
 import SEOHead from '../../components/SEOHead';
-
-const POSTS_DATA = {
-  1: {
-    category: 'notice', author: 'Admin', date: '2026-04-04', views: 128,
-    title: 'Genspark Master 커뮤니티 오픈!',
-    titleEn: 'Genspark Master Community Open!',
-    content: `안녕하세요! Genspark Master 커뮤니티가 오픈되었습니다.\n\nGenspark AI와 관련된 팁, 질문, 사용 후기 등을 자유롭게 공유해주세요.\n\n### 커뮤니티 이용 안내\n- **팁**: Genspark 활용 노하우 공유\n- **질문**: 사용 중 궁금한 점 질문\n- **자유**: 자유롭게 소통\n\n많은 참여 부탁드립니다!`,
-    contentEn: `Hello! The Genspark Master community is now open.\n\nFeel free to share tips, questions, and reviews about Genspark AI.\n\n### Community Guidelines\n- **Tips**: Share Genspark usage know-how\n- **Questions**: Ask anything about usage\n- **Free**: Open discussion\n\nWe look forward to your participation!`,
-  },
-  2: {
-    category: 'tip', author: 'GenUser01', date: '2026-04-04', views: 87,
-    title: 'Super Agent로 이메일 자동 정리하는 방법',
-    titleEn: 'How to Auto-organize Emails with Super Agent',
-    content: `Super Agent에 Gmail을 연동하면 이메일을 자동으로 정리할 수 있습니다.\n\n### 설정 방법\n1. Genspark에서 Gmail 계정 연결\n2. Super Agent에게 "매일 아침 읽지 않은 이메일을 요약해줘" 요청\n3. 자동으로 카테고리별 정리 + 액션 아이템 추출\n\n### 활용 팁\n- 뉴스레터와 중요 메일을 자동 분류\n- 답장이 필요한 메일만 하이라이트\n- 주간 이메일 리포트 자동 생성`,
-    contentEn: `You can auto-organize emails by connecting Gmail to Super Agent.\n\n### Setup\n1. Connect your Gmail account in Genspark\n2. Ask Super Agent: "Summarize my unread emails every morning"\n3. Auto-categorize + extract action items\n\n### Tips\n- Auto-classify newsletters vs important emails\n- Highlight only emails needing replies\n- Auto-generate weekly email reports`,
-  },
-};
+import { getPostById, createComment, deleteComment, deletePost } from '../../utils/posts';
 
 export default function BoardDetail() {
   const { id } = useParams();
   const { language } = useLanguage();
   const isKo = language === 'ko';
-  const post = POSTS_DATA[id];
+  const { user, isAdmin } = useAuth();
+  const toast = useToast();
+  const navigate = useNavigate();
 
-  if (!post) {
-    return (
-      <div className="community-page">
-        <div className="container">
-          <div className="page-header">
-            <h1>{isKo ? '게시글을 찾을 수 없습니다' : 'Post not found'}</h1>
-          </div>
-          <Link to="/community" className="btn btn-secondary btn-sm">
-            {isKo ? '목록으로' : 'Back to list'}
-          </Link>
-        </div>
-      </div>
-    );
-  }
+  const [post, setPost] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const [commentText, setCommentText] = useState('');
+  const [submitting, setSubmitting] = useState(false);
+
+  useEffect(() => {
+    async function fetchPost() {
+      setLoading(true);
+      try {
+        const data = await getPostById(id);
+        setPost(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchPost();
+  }, [id]);
+
+  const handleCommentSubmit = async (e) => {
+    e.preventDefault();
+    if (!commentText.trim() || !user) return;
+    setSubmitting(true);
+    try {
+      const authorName = user?.user_metadata?.display_name || user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'Anonymous';
+      const newComment = await createComment({ postId: Number(id), body: commentText.trim(), authorId: user.id, authorName });
+      setPost(prev => ({ ...prev, comments: [...(prev.comments || []), newComment] }));
+      setCommentText('');
+      toast.success(isKo ? '댓글이 등록되었습니다.' : 'Comment posted.');
+    } catch (err) {
+      toast.error(err.message);
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const handleDeleteComment = async (commentId) => {
+    if (!confirm(isKo ? '댓글을 삭제하시겠습니까?' : 'Delete this comment?')) return;
+    try {
+      await deleteComment(commentId);
+      setPost(prev => ({ ...prev, comments: prev.comments.filter(c => c.id !== commentId) }));
+      toast.success(isKo ? '댓글이 삭제되었습니다.' : 'Comment deleted.');
+    } catch (err) {
+      toast.error(err.message);
+    }
+  };
+
+  const handleDeletePost = async () => {
+    if (!confirm(isKo ? '게시글을 삭제하시겠습니까?' : 'Delete this post?')) return;
+    try {
+      await deletePost(Number(id));
+      toast.success(isKo ? '게시글이 삭제되었습니다.' : 'Post deleted.');
+      navigate('/community');
+    } catch (err) {
+      toast.error(err.message);
+    }
+  };
+
+  const formatDate = (dateStr) => {
+    if (!dateStr) return '';
+    return new Date(dateStr).toLocaleDateString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' });
+  };
+
+  const canDelete = post && user && (user.id === post.author_id || isAdmin);
+
+  if (loading) return <div className="community-page"><div className="container"><p style={{ textAlign: 'center', padding: '60px 0', color: 'var(--text-light)' }}>{isKo ? '로딩 중...' : 'Loading...'}</p></div></div>;
+  if (error || !post) return <div className="community-page"><div className="container"><p style={{ textAlign: 'center', padding: '60px 0', color: '#EF4444' }}>{error || (isKo ? '게시글을 찾을 수 없습니다.' : 'Post not found.')}</p><div style={{ textAlign: 'center' }}><Link to="/community" className="btn btn-secondary btn-sm">{isKo ? '목록으로' : 'Back to List'}</Link></div></div></div>;
 
   return (
     <div className="community-page">
-      <SEOHead title={isKo ? post.title : post.titleEn} path={`/community/${id}`} />
+      <SEOHead title={post.title} path={`/community/${id}`} />
       <div className="container">
         <div className="post-detail">
           <div className="post-detail-header">
-            <h1 className="post-detail-title">{isKo ? post.title : post.titleEn}</h1>
+            <h1 className="post-detail-title">{post.title}</h1>
             <div className="post-detail-info">
-              <span>{post.author}</span>
-              <span>{post.date}</span>
-              <span><i className="fa-solid fa-eye" /> {post.views}</span>
+              <span>{post.author_name || (isKo ? '익명' : 'Anonymous')}</span>
+              <span>{formatDate(post.created_at)}</span>
+              <span><i className="fa-solid fa-eye" /> {post.view_count || 0}</span>
             </div>
           </div>
-          <div className="post-detail-body" style={{ whiteSpace: 'pre-line' }}>
-            {isKo ? post.content : post.contentEn}
+
+          <div className="post-detail-body">
+            {(post.content || '').split('\n').map((line, i) => <p key={i}>{line || <br />}</p>)}
           </div>
-          <Link to="/community" className="btn btn-secondary btn-sm">
-            <i className="fa-solid fa-arrow-left" /> {isKo ? '목록으로' : 'Back to list'}
-          </Link>
+
+          <div className="post-detail-actions">
+            <Link to="/community" className="btn btn-secondary btn-sm">
+              <i className="fa-solid fa-arrow-left" /> {isKo ? '목록으로' : 'Back to List'}
+            </Link>
+            {canDelete && (
+              <button className="btn btn-sm" style={{ background: '#EF4444', color: '#fff', borderColor: '#EF4444' }} onClick={handleDeletePost}>
+                <i className="fa-solid fa-trash" /> {isKo ? '삭제' : 'Delete'}
+              </button>
+            )}
+          </div>
+
+          <div className="comments-section">
+            <h3 className="comments-title">{isKo ? `댓글 ${post.comments?.length || 0}개` : `${post.comments?.length || 0} Comments`}</h3>
+
+            {(post.comments || []).map(comment => (
+              <div key={comment.id} className="comment-item">
+                <div className="comment-header">
+                  <span className="comment-author">{comment.author_name || 'Anonymous'}</span>
+                  <span className="comment-date">{formatDate(comment.created_at)}</span>
+                  {user && (user.id === comment.author_id || isAdmin) && (
+                    <button style={{ marginLeft: 8, background: 'none', border: 'none', color: '#EF4444', cursor: 'pointer', fontSize: 12 }} onClick={() => handleDeleteComment(comment.id)}>
+                      <i className="fa-solid fa-trash" />
+                    </button>
+                  )}
+                </div>
+                <div className="comment-body">{comment.body}</div>
+              </div>
+            ))}
+
+            {user ? (
+              <form className="comment-form" onSubmit={handleCommentSubmit}>
+                <textarea placeholder={isKo ? '댓글을 입력하세요...' : 'Write a comment...'} value={commentText} onChange={e => setCommentText(e.target.value)} />
+                <button type="submit" className="btn btn-primary btn-sm" style={{ alignSelf: 'flex-end' }} disabled={!commentText.trim() || submitting}>
+                  {submitting ? (isKo ? '등록 중...' : 'Posting...') : (isKo ? '등록' : 'Post')}
+                </button>
+              </form>
+            ) : (
+              <p style={{ textAlign: 'center', color: 'var(--text-light)', padding: '16px 0' }}>
+                <Link to="/login" style={{ color: 'var(--primary-blue)' }}>{isKo ? '로그인' : 'Login'}</Link>
+                {isKo ? ' 후 댓글을 작성할 수 있습니다.' : ' to write a comment.'}
+              </p>
+            )}
+          </div>
         </div>
       </div>
     </div>

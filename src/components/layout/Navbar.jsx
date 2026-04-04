@@ -1,12 +1,16 @@
 import { useState, useEffect, useRef } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useTheme } from '../../contexts/ThemeContext';
 import { useLanguage } from '../../contexts/LanguageContext';
+import { useAuth } from '../../contexts/AuthContext';
+import { signOut } from '../../utils/auth';
 
 export default function Navbar() {
   const { mode, toggleTheme, colorTheme, setColorTheme, COLOR_OPTIONS } = useTheme();
   const { language, toggleLanguage } = useLanguage();
+  const { user, isAuthenticated } = useAuth();
   const location = useLocation();
+  const navigate = useNavigate();
 
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -34,6 +38,14 @@ export default function Navbar() {
   }, []);
 
   const themeIconClass = mode === 'auto' ? 'fa-circle-half-stroke' : mode === 'light' ? 'fa-sun' : 'fa-moon';
+
+  const displayName = user?.user_metadata?.display_name || user?.user_metadata?.full_name || user?.email?.split('@')[0] || '';
+  const avatarLetter = displayName.charAt(0).toUpperCase();
+
+  async function handleSignOut() {
+    await signOut();
+    navigate('/');
+  }
 
   const NAV_ITEMS = [
     { path: '/about', ko: 'About', en: 'About' },
@@ -94,6 +106,20 @@ export default function Navbar() {
             <button className="lang-toggle" onClick={toggleLanguage}>
               {language === 'ko' ? 'EN' : 'KO'}
             </button>
+
+            {isAuthenticated ? (
+              <div className="nav-auth-group">
+                <button className="user-avatar-btn" onClick={handleSignOut} title={isKo ? '로그아웃' : 'Sign Out'}>
+                  {avatarLetter}
+                </button>
+              </div>
+            ) : (
+              <div className="nav-auth-group">
+                <Link to="/login" className="nav-auth-btn nav-login-btn">
+                  {isKo ? '로그인' : 'Login'}
+                </Link>
+              </div>
+            )}
 
             <button
               className={`mobile-menu-toggle ${isMobileMenuOpen ? 'open' : ''}`}

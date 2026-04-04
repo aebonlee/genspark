@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../../contexts/LanguageContext';
+import { useAuth } from '../../contexts/AuthContext';
 import SEOHead from '../../components/SEOHead';
+import { getPosts } from '../../utils/posts';
 
 const CATEGORIES = [
   { key: 'all', ko: '전체', en: 'All' },
@@ -11,43 +13,62 @@ const CATEGORIES = [
   { key: 'free', ko: '자유', en: 'Free' },
 ];
 
-const DUMMY_POSTS = [
-  { id: 1, category: 'notice', title: 'Genspark Master 커뮤니티 오픈!', titleEn: 'Genspark Master Community Open!', author: 'Admin', date: '2026-04-04', views: 128 },
-  { id: 2, category: 'tip', title: 'Super Agent로 이메일 자동 정리하는 방법', titleEn: 'How to Auto-organize Emails with Super Agent', author: 'GenUser01', date: '2026-04-04', views: 87 },
-  { id: 3, category: 'tip', title: 'Deep Research 활용 - 시장조사 보고서 만들기', titleEn: 'Deep Research - Creating Market Research Reports', author: 'Researcher', date: '2026-04-03', views: 65 },
-  { id: 4, category: 'question', title: 'AI Developer로 React 앱 만들 수 있나요?', titleEn: 'Can I build React apps with AI Developer?', author: 'DevBeginner', date: '2026-04-03', views: 42 },
-  { id: 5, category: 'free', title: 'Genspark vs ChatGPT 비교 사용기', titleEn: 'Genspark vs ChatGPT Comparison Review', author: 'AIFan', date: '2026-04-02', views: 156 },
-  { id: 6, category: 'tip', title: 'Sparkpages로 기술 블로그 자동 생성하기', titleEn: 'Auto-generate Tech Blog with Sparkpages', author: 'Blogger', date: '2026-04-02', views: 73 },
-  { id: 7, category: 'question', title: 'AI Phone Calling 한국에서도 되나요?', titleEn: 'Does AI Phone Calling work in Korea?', author: 'Curious', date: '2026-04-01', views: 38 },
-  { id: 8, category: 'free', title: 'AI Slides로 발표 준비 시간 90% 단축한 후기', titleEn: 'How AI Slides Cut My Presentation Prep by 90%', author: 'Speaker', date: '2026-04-01', views: 201 },
-  { id: 9, category: 'tip', title: 'Genspark 무료 플랜 크레딧 절약 팁', titleEn: 'Tips to Save Credits on Genspark Free Plan', author: 'SaverPro', date: '2026-03-31', views: 94 },
-  { id: 10, category: 'notice', title: '프롬프트 가이드 v2 업데이트 안내', titleEn: 'Prompt Guide v2 Update Notice', author: 'Admin', date: '2026-03-30', views: 67 },
-];
-
 export default function Board() {
   const { language } = useLanguage();
+  const { isAuthenticated } = useAuth();
   const isKo = language === 'ko';
   const [activeCategory, setActiveCategory] = useState('all');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [search, setSearch] = useState('');
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
-  const filtered = DUMMY_POSTS.filter(post => {
-    const matchCategory = activeCategory === 'all' || post.category === activeCategory;
-    const matchSearch = searchQuery === '' ||
-      (isKo ? post.title : post.titleEn).toLowerCase().includes(searchQuery.toLowerCase());
-    return matchCategory && matchSearch;
-  });
+  const fetchPosts = useCallback(async () => {
+    setLoading(true);
+    setError('');
+    try {
+      const data = await getPosts({ category: activeCategory, search });
+      setPosts(data);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  }, [activeCategory, search]);
+
+  useEffect(() => { fetchPosts(); }, [fetchPosts]);
+
+  const [searchInput, setSearchInput] = useState('');
+  useEffect(() => {
+    const timer = setTimeout(() => setSearch(searchInput), 400);
+    return () => clearTimeout(timer);
+  }, [searchInput]);
+
+  const formatDate = (dateStr) => {
+    if (!dateStr) return '';
+    return new Date(dateStr).toLocaleDateString('ko-KR', {
+      year: 'numeric', month: '2-digit', day: '2-digit',
+    });
+  };
 
   return (
     <div className="community-page">
       <SEOHead title={isKo ? '커뮤니티' : 'Community'} path="/community" />
       <div className="container">
-        <div className="page-header">
-          <h1>{isKo ? '커뮤니티' : 'Community'}</h1>
-          <p className="page-desc">
-            {isKo
-              ? 'Genspark AI 사용 경험을 공유하고 함께 성장하는 공간입니다.'
-              : 'A space to share your Genspark AI experience and grow together.'}
-          </p>
+        <div className="community-header">
+          <div>
+            <h1 style={{ fontSize: '28px', fontWeight: 800 }}>{isKo ? '커뮤니티' : 'Community'}</h1>
+            <p className="page-desc" style={{ marginTop: '8px' }}>
+              {isKo
+                ? 'Genspark AI 사용 경험을 공유하고 함께 성장하는 공간입니다.'
+                : 'A space to share your Genspark AI experience and grow together.'}
+            </p>
+          </div>
+          {isAuthenticated && (
+            <Link to="/community/write" className="btn btn-primary btn-sm">
+              <i className="fa-solid fa-pen" /> {isKo ? '글쓰기' : 'Write'}
+            </Link>
+          )}
         </div>
 
         <div className="community-tabs">
@@ -65,32 +86,37 @@ export default function Board() {
         <div className="community-search">
           <input
             type="text"
-            placeholder={isKo ? '게시글 검색...' : 'Search posts...'}
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder={isKo ? '제목, 작성자 검색...' : 'Search title, author...'}
+            value={searchInput}
+            onChange={e => setSearchInput(e.target.value)}
           />
         </div>
 
         <div className="post-list">
-          {filtered.length === 0 ? (
-            <div className="text-center" style={{ padding: '48px 0', color: 'var(--text-light)' }}>
+          {loading && <p style={{ textAlign: 'center', color: 'var(--text-light)', padding: '40px 0' }}>{isKo ? '로딩 중...' : 'Loading...'}</p>}
+          {error && <p style={{ textAlign: 'center', color: '#EF4444', padding: '40px 0' }}>{error}</p>}
+          {!loading && !error && posts.length === 0 && (
+            <p style={{ textAlign: 'center', color: 'var(--text-light)', padding: '40px 0' }}>
               {isKo ? '게시글이 없습니다.' : 'No posts found.'}
-            </div>
-          ) : (
-            filtered.map(post => (
-              <Link key={post.id} to={`/community/${post.id}`} className="post-item">
-                <span className={`post-category ${post.category}`}>
-                  {CATEGORIES.find(c => c.key === post.category)?.[isKo ? 'ko' : 'en']}
-                </span>
-                <span className="post-title">{isKo ? post.title : post.titleEn}</span>
-                <span className="post-meta">
-                  <span>{post.author}</span>
-                  <span>{post.date}</span>
-                  <span><i className="fa-solid fa-eye" /> {post.views}</span>
-                </span>
-              </Link>
-            ))
+              {!isAuthenticated && (
+                <><br /><Link to="/login" style={{ color: 'var(--primary-blue)' }}>{isKo ? '로그인하고 첫 글을 작성해보세요!' : 'Login and write the first post!'}</Link></>
+              )}
+            </p>
           )}
+          {!loading && posts.map(post => (
+            <Link key={post.id} to={`/community/${post.id}`} className="post-item">
+              <span className={`post-category ${post.category}`}>
+                {isKo ? CATEGORIES.find(c => c.key === post.category)?.ko : CATEGORIES.find(c => c.key === post.category)?.en}
+              </span>
+              <span className="post-title">{post.title}</span>
+              <div className="post-meta">
+                <span>{post.author_name || (isKo ? '익명' : 'Anonymous')}</span>
+                <span>{formatDate(post.created_at)}</span>
+                <span><i className="fa-solid fa-eye" /> {post.view_count || 0}</span>
+                <span><i className="fa-solid fa-comment" /> {post.comment_count || 0}</span>
+              </div>
+            </Link>
+          ))}
         </div>
       </div>
     </div>

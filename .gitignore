@@ -23,3 +23,10 @@ Thumbs.db
 # Logs
 *.log
 npm-debug.log*
+
+# Claude
+.claude/
+
+# Windows artifacts
+NUL
+nul
