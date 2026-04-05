@@ -119,7 +119,7 @@ function highlightCode(code, language) {
 
 /* -- Component -- */
 
-export default function CodeBlock({ code, language = '' }) {
+export default function CodeBlock({ code, language = '' }: any) {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {

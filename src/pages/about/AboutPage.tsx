@@ -21,7 +21,7 @@ export default function AboutPage() {
   const activeSection = SECTIONS[activeIndex];
 
   const markdownComponents = {
-    code({ inline, className, children, ...props }) {
+    code({ inline, className, children, ...props }: any) {
       const match = /language-(\w+)/.exec(className || '');
       if (!inline && match) {
         return <CodeBlock code={String(children).replace(/\n$/, '')} language={match[1]} />;
@@ -31,10 +31,10 @@ export default function AboutPage() {
       }
       return <code className="inline-code" {...props}>{children}</code>;
     },
-    table({ children }) {
+    table({ children }: any) {
       return <div className="table-responsive"><table>{children}</table></div>;
     },
-    blockquote({ children }) {
+    blockquote({ children }: any) {
       return <TipBox type="tip">{children}</TipBox>;
     },
   };
