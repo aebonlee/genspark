@@ -1,4 +1,4 @@
-import{j as e,M as g,r as b}from"./markdown-Cj98-2Lq.js";import{b as h}from"./vendor-BdU1dAPY.js";import{u as f}from"./index-v6UDu63d.js";import{S as v}from"./SEOHead-BTfZ_g6M.js";import{T as S,C as d}from"./TipBox-DgPxCeBa.js";const y={id:"overview",title:"AI Developer 개요",titleEn:"AI Developer Overview",icon:"fa-code",sections:[{title:"AI Developer란?",titleEn:"What is AI Developer?",content:`AI Developer는 Genspark의 코드 생성 및 웹 애플리케이션 빌드 도구입니다. 프로그래밍 경험이 없는 사용자도 자연어로 설명하면 AI가 완전한 웹사이트나 애플리케이션을 생성해줍니다. 간단한 랜딩 페이지부터 복잡한 웹 애플리케이션까지 다양한 프로젝트를 만들 수 있습니다.
+import{j as e,M as g,r as b}from"./markdown-Cj98-2Lq.js";import{b as h}from"./vendor-BdU1dAPY.js";import{u as f}from"./index-sjRdx_-2.js";import{S as v}from"./SEOHead-BTfZ_g6M.js";import{T as S,C as d}from"./TipBox-DgPxCeBa.js";const y={id:"overview",title:"AI Developer 개요",titleEn:"AI Developer Overview",icon:"fa-code",sections:[{title:"AI Developer란?",titleEn:"What is AI Developer?",content:`AI Developer는 Genspark의 코드 생성 및 웹 애플리케이션 빌드 도구입니다. 프로그래밍 경험이 없는 사용자도 자연어로 설명하면 AI가 완전한 웹사이트나 애플리케이션을 생성해줍니다. 간단한 랜딩 페이지부터 복잡한 웹 애플리케이션까지 다양한 프로젝트를 만들 수 있습니다.
 
 ### 핵심 기능
 

@@ -1,4 +1,4 @@
-import{j as e,M as h,r as f}from"./markdown-Cj98-2Lq.js";import{b as g}from"./vendor-BdU1dAPY.js";import{u as v}from"./index-v6UDu63d.js";import{S as y}from"./SEOHead-BTfZ_g6M.js";import{T as R,C as p}from"./TipBox-DgPxCeBa.js";const A={id:"overview",title:"Deep Research 개요",titleEn:"Deep Research Overview",icon:"fa-microscope",sections:[{title:"Deep Research란?",titleEn:"What is Deep Research?",content:`Deep Research는 Genspark의 심층 리서치 엔진으로, 복잡한 주제에 대해 여러 AI 모델과 도구를 동시에 활용하여 포괄적이고 정확한 리서치 보고서를 생성합니다. 일반적인 AI 검색과 달리, 여러 소스를 교차 검증하고 깊이 있는 분석을 제공합니다.
+import{j as e,M as h,r as f}from"./markdown-Cj98-2Lq.js";import{b as g}from"./vendor-BdU1dAPY.js";import{u as v}from"./index-sjRdx_-2.js";import{S as y}from"./SEOHead-BTfZ_g6M.js";import{T as R,C as p}from"./TipBox-DgPxCeBa.js";const A={id:"overview",title:"Deep Research 개요",titleEn:"Deep Research Overview",icon:"fa-microscope",sections:[{title:"Deep Research란?",titleEn:"What is Deep Research?",content:`Deep Research는 Genspark의 심층 리서치 엔진으로, 복잡한 주제에 대해 여러 AI 모델과 도구를 동시에 활용하여 포괄적이고 정확한 리서치 보고서를 생성합니다. 일반적인 AI 검색과 달리, 여러 소스를 교차 검증하고 깊이 있는 분석을 제공합니다.
 
 ### 핵심 특징
 
