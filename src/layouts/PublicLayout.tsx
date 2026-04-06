@@ -2,6 +2,8 @@ import { Suspense, lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
+import { LicenseProvider } from '../components/LicenseGuard';
+import LockOverlay from '../components/LockOverlay';
 
 const Home = lazy(() => import('../pages/Home'));
 const Login = lazy(() => import('../pages/Login'));
@@ -33,6 +35,7 @@ function LoadingFallback() {
 
 export default function PublicLayout() {
   return (
+    <LicenseProvider>
     <div className="site-wrapper">
       <Navbar />
       <main className="site-main">
@@ -61,6 +64,8 @@ export default function PublicLayout() {
         </Suspense>
       </main>
       <Footer />
+      <LockOverlay />
     </div>
+    </LicenseProvider>
   );
 }
