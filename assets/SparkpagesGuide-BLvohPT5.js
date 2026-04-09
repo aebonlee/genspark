@@ -1,4 +1,4 @@
-import{j as e,M as m,r as h}from"./markdown-Cj98-2Lq.js";import{b as S}from"./vendor-BdU1dAPY.js";import{u as k}from"./index-EHtRap3x.js";import{S as y}from"./SEOHead-BTfZ_g6M.js";import{T as b,C as l}from"./TipBox-DgPxCeBa.js";const f={id:"overview",title:"Sparkpages 개요",titleEn:"Sparkpages Overview",icon:"fa-file-lines",sections:[{title:"Sparkpages란?",titleEn:"What is Sparkpages?",content:`Sparkpages는 Genspark의 AI 기반 웹 콘텐츠 생성 도구입니다. 검색 결과나 리서치 내용을 아름답고 구조화된 웹 페이지 형태로 자동 생성합니다. 기존의 단순 텍스트 응답과 달리, 시각적으로 풍부하고 공유 가능한 콘텐츠를 만들어냅니다.
+import{j as e,M as m,r as h}from"./markdown-Cj98-2Lq.js";import{b as S}from"./vendor-BdU1dAPY.js";import{u as k}from"./index-Cdm6_pFm.js";import{S as y}from"./SEOHead-BTfZ_g6M.js";import{T as b,C as l}from"./TipBox-DgPxCeBa.js";const f={id:"overview",title:"Sparkpages 개요",titleEn:"Sparkpages Overview",icon:"fa-file-lines",sections:[{title:"Sparkpages란?",titleEn:"What is Sparkpages?",content:`Sparkpages는 Genspark의 AI 기반 웹 콘텐츠 생성 도구입니다. 검색 결과나 리서치 내용을 아름답고 구조화된 웹 페이지 형태로 자동 생성합니다. 기존의 단순 텍스트 응답과 달리, 시각적으로 풍부하고 공유 가능한 콘텐츠를 만들어냅니다.
 
 ### 핵심 특징
 
