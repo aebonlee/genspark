@@ -1,4 +1,4 @@
-import{j as e,M as p,r as h}from"./markdown-Cj98-2Lq.js";import{b as I}from"./vendor-BdU1dAPY.js";import{u as y}from"./index-Cdm6_pFm.js";import{S as v}from"./SEOHead-BTfZ_g6M.js";import{T as A,C as d}from"./TipBox-DgPxCeBa.js";const f={id:"overview",title:"AI Tools 통합 개요",titleEn:"AI Tools Overview",icon:"fa-toolbox",sections:[{title:"Genspark AI 도구 모음",titleEn:"Genspark AI Tool Suite",content:`Genspark는 다양한 AI 도구를 하나의 플랫폼에서 통합 제공합니다. 이미지 생성, 영상 생성, AI 전화, 문서 작성 등 다양한 도구를 별도의 앱 설치 없이 사용할 수 있습니다.
+import{j as e,M as p,r as h}from"./markdown-Cj98-2Lq.js";import{b as I}from"./vendor-BdU1dAPY.js";import{u as y}from"./index-BhY0LEyE.js";import{S as v}from"./SEOHead-BTfZ_g6M.js";import{T as A,C as d}from"./TipBox-DgPxCeBa.js";const f={id:"overview",title:"AI Tools 통합 개요",titleEn:"AI Tools Overview",icon:"fa-toolbox",sections:[{title:"Genspark AI 도구 모음",titleEn:"Genspark AI Tool Suite",content:`Genspark는 다양한 AI 도구를 하나의 플랫폼에서 통합 제공합니다. 이미지 생성, 영상 생성, AI 전화, 문서 작성 등 다양한 도구를 별도의 앱 설치 없이 사용할 수 있습니다.
 
 ### 통합 도구 목록
 
