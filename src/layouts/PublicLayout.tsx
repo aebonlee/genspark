@@ -4,6 +4,7 @@ import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import { LicenseProvider } from '../components/LicenseGuard';
 import LockOverlay from '../components/LockOverlay';
+import AdminGuard from '../components/AdminGuard';
 
 const Home = lazy(() => import('../pages/Home'));
 const Login = lazy(() => import('../pages/Login'));
@@ -23,6 +24,7 @@ const Roadmap = lazy(() => import('../pages/roadmap/Roadmap'));
 const Board = lazy(() => import('../pages/community/Board'));
 const BoardDetail = lazy(() => import('../pages/community/BoardDetail'));
 const BoardWrite = lazy(() => import('../pages/community/BoardWrite'));
+const AdminDashboard = lazy(() => import('../pages/admin/AdminDashboard'));
 const NotFound = lazy(() => import('../pages/NotFound'));
 
 function LoadingFallback() {
@@ -59,6 +61,7 @@ export default function PublicLayout() {
             <Route path="/community" element={<Board />} />
             <Route path="/community/write" element={<BoardWrite />} />
             <Route path="/community/:id" element={<BoardDetail />} />
+            <Route path="/admin" element={<AdminGuard><AdminDashboard /></AdminGuard>} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
