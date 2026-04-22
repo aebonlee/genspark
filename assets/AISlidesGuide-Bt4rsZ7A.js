@@ -1,4 +1,4 @@
-import{j as e,M as g,r as h}from"./markdown-nDXzyGI7.js";import{b as f}from"./vendor-C9mfkM5v.js";import{u as y}from"./index-qR9ObeyK.js";import{S as v}from"./SEOHead--YPcRRQn.js";import{T as x,C as d}from"./TipBox-CtPpxSpa.js";const S={id:"overview",title:"AI Slides 개요",titleEn:"AI Slides Overview",icon:"fa-presentation-screen",sections:[{title:"AI Slides란?",titleEn:"What is AI Slides?",content:`AI Slides는 Genspark의 AI 기반 프레젠테이션 자동 생성 도구입니다. 주제를 입력하면 AI가 구조, 디자인, 콘텐츠를 자동으로 생성하여 전문적인 프레젠테이션을 만들어줍니다. PowerPoint나 Google Slides를 직접 만드는 것보다 훨씬 빠르게 고품질 슬라이드를 제작할 수 있습니다.
+import{j as e,M as g,r as h}from"./markdown-nDXzyGI7.js";import{b as f}from"./vendor-C9mfkM5v.js";import{u as y}from"./index-tXzbvWqR.js";import{S as v}from"./SEOHead--YPcRRQn.js";import{T as x,C as d}from"./TipBox-CtPpxSpa.js";const S={id:"overview",title:"AI Slides 개요",titleEn:"AI Slides Overview",icon:"fa-presentation-screen",sections:[{title:"AI Slides란?",titleEn:"What is AI Slides?",content:`AI Slides는 Genspark의 AI 기반 프레젠테이션 자동 생성 도구입니다. 주제를 입력하면 AI가 구조, 디자인, 콘텐츠를 자동으로 생성하여 전문적인 프레젠테이션을 만들어줍니다. PowerPoint나 Google Slides를 직접 만드는 것보다 훨씬 빠르게 고품질 슬라이드를 제작할 수 있습니다.
 
 ### 핵심 기능
 
